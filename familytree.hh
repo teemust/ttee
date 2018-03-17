@@ -175,6 +175,15 @@ public:
                             std::ostream& output) const;
 
 private:
+
+    std::map< std::string, std::shared_ptr<Person> > henkilot;
+
+
+
+
+    //std::vector<std::shared_ptr<Person> > henkilot;
+
+
     // <REMOVE FROM TEMPLATE>
     //Personmap data_;
     // </REMOVE FROM TEMPLATE>
@@ -222,6 +231,11 @@ private:
                              */
     //------------------------
     // </REMOVE FROM TEMPLATE>
+
+
+
+
+
 };
 
 #endif // FAMILYTREE_H
