@@ -21,8 +21,8 @@ Familytree::~Familytree()
 
 }
 
-// Luodaan vectori henkilot johon tallennetaan Persen struckteja (henkilo)
-vector<shared_ptr<Person>> henkilot;
+// Luodaan vectori henkilot johon tallennetaan Person struckteja (henkilo)
+
 
 
 
@@ -31,24 +31,39 @@ void Familytree::addNewPerson(const std::string &id, const int &height, std::ost
 
     // Luodaan henkilo
     shared_ptr<Person> henkilo(new Person);
-    shared_ptr<Person> henkilo2(new Person);
 
     // Määritellään id ja pituus
     henkilo->id_ = id;
     henkilo->height_ = height;
 
-    henkilo->parents_.push_back(henkilo2);
+    // Lisätään henkilö map:n
 
+    henkilot.insert( { id, henkilo} );
 
-    // Lisätään henkilö vectoriin
-    henkilot.push_back(henkilo);
+    //henkilot.push_back(henkilo);
 
 }
 
+
+
+
+
+
+
+
 void Familytree::printPersons(std::ostream &output) const {
-    for ( auto i : henkilot ) {
-        cout << i->id_ << ";" << &i->id_ << endl;
+    for ( auto henkilo : henkilot ) {
+        cout << henkilo.first << " " << henkilo.second->height_ << " " << &henkilo.second->id_ << endl;
     }
+
+
+    for ( auto i : henkilot ) {
+        cout << i.second->id_ << endl;
+        for ( auto b : i.second->parents_ ) {
+            cout << b << endl;
+        }
+    }
+
 }
 
 void Familytree::addRelation(const std::string &child, const std::vector<std::string> &parents, std::ostream &output) {
@@ -56,6 +71,30 @@ void Familytree::addRelation(const std::string &child, const std::vector<std::st
 
     cout << "PAALAPSI: " << ";" << child << ";" << &child << endl;
 
+    auto it = henkilot.find(child);
+
+    if ( it != henkilot.end() ) {
+
+        for ( auto a : parents ) {
+            cout << henkilot[a] << endl;
+
+            henkilot[child]->parents_(henkilot[a]);
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
 
 
     for ( auto lapsi : henkilot ) {
@@ -77,16 +116,14 @@ void Familytree::addRelation(const std::string &child, const std::vector<std::st
 
                     //std::vector<Person*> parents_{nullptr, nullptr};
 
-
-
-                    //lapsi->parents_.push_back(aikuinen);
-
                     lapsi->parents_.push_back(nullptr);
                     }
                 }
             }
         }
     }
+
+    */
 
 /*
 
